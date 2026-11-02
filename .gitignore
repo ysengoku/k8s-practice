@@ -13,5 +13,5 @@ Thumbs.db
 *.swp
 *.swo
 
-# ─── Build output ───
 *.log
+*/.vagrant/
