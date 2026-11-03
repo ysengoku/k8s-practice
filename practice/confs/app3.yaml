@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app3
+spec:
+  replicas: 1      # desired number of Pods
+  selector:
+    matchLabels:
+      app: app3    # manage Pods with this label
+  template:        # template of the Pods to create
+    metadata:
+      labels:
+        app: app3  # must match the selector above
+    spec:
+      containers:
+      - name: app3
+        image: hashicorp/http-echo
+        args: ["-text=Hello from app3"]
+        ports:
+        - containerPort: 5678
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app3
+spec:
+  selector:
+    app: app3
+  ports:
+  - port: 80
+    targetPort: 5678

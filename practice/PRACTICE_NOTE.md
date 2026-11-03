@@ -274,3 +274,49 @@ kubectl apply -f confs/app2.yaml
 kubectl delete svc app1            # created with a command
 kubectl delete -f confs/app2.yaml  # created with YAML (Deployment & Service)
 ```
+
+## Ingress
+
+An **Ingress** routes HTTP traffic from outside the cluster to Services, based on the **host name** or the **path**.
+In k3s/k3d, the Ingress controller is **Traefik** (already running in `kube-system`).
+
+```
+curl localhost:8080
+  -> k3d load balancer (8080 -> 80)  # set with -p "8080:80"
+  -> Traefik (Ingress controller)
+  -> Ingress rules (check the Host header)
+  -> Service app1 / app2 / app3
+  -> Pods
+```
+
+Manifest: [confs/ingress.yaml](./confs/ingress.yaml)
+
+### Create Ingress
+
+```bash
+kubectl apply -f confs/ingress.yaml 
+# -- Output --
+# ingress.networking.k8s.io/my-ingress created
+
+kubectl get ingress
+# NAME         CLASS     HOSTS               ADDRESS      PORTS   AGE
+# my-ingress   traefik   app1.com,app2.com   172.18.0.2   80      11m
+```
+
+### Test   
+`app1.com` does not exist in DNS, so the `Host` header is set manually with `-H`.
+
+```bash
+curl -H "Host: app1.com" localhost:8080
+# Hello from app1
+curl -H "Host: app2.com" localhost:8080
+# Hello from app2
+curl -H localhost:8080
+# Hello from app3
+```
+
+### Clean up
+
+```bash
+kubectl delete -f confs/ingress.yaml
+```
