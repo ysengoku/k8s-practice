@@ -203,3 +203,74 @@ vagrant@practice:~$ kubectl get deployments
 ```bash
 kubectl delete -f confs/app1.yaml
 ```
+
+## Service
+
+Pods' IP addresses change whenever they are recreated (scaling, failures, updates).
+
+A **Service** provides a fixed endpoint (virtual IP + DNS name) for clients to reach the Pods.
+It finds its Pods by **label** (`selector`), and load-balances between them if there are several.
+
+```
+client -> Service app1 (port 80) -> Pod app1-xxx (port 5678)
+                                 -> Pod app1-yyy (port 5678)
+```
+
+### Create a Service with a command
+
+```bash
+# Create service
+kubectl expose deployment app1 --port=80 --target-port=5678
+# -- Output --
+# service/app1 exposed
+```
+- `--port=80`: port of the Service (what clients call)
+- `--target-port=5678`: port the container listens on (`containerPort` in the Deployment)
+
+```bash
+kubectl get svc
+# -- Output --
+# NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+# app1         ClusterIP   10.43.189.102   <none>        80/TCP    22s
+#kubernetes   ClusterIP   10.43.0.1       <none>        443/TCP   21h
+```
+- `ClusterIP`: reachable only from inside the cluster
+
+### Access the Service from the VM
+
+```bash
+# Forward VM port 9000 to the service port 80
+kubectl port-forward svc/app1 9000:80
+# -- Output --
+# Forwarding from 127.0.0.1:9000 -> 80
+# Forwarding from [::1]:9000 -> 80
+# Handling connection for 9000
+```
+
+From another terminal:
+```bash
+vargrant ssh
+
+curl localhost:9000
+# --Output --
+# Hello from app1
+```
+
+### Create a Service with YAML
+
+Easier to reproduce and manage with git. A Deployment and a Service can be written in the same file, separated by `---` (cf. [confs/app2.yaml](./confs/app2.yaml)).
+
+```bash
+kubectl apply -f confs/app2.yaml
+
+# -- Output --
+# deployment.apps/app2 created
+# service/app2 created
+```
+
+### Clean up
+
+```bash
+kubectl delete svc app1            # created with a command
+kubectl delete -f confs/app2.yaml  # created with YAML (Deployment & Service)
+```
