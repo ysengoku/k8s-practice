@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bye
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bye
+  template:
+    metadata:
+      labels:
+        app: bye
+    spec:
+      containers:
+      - name: bye
+        image: hashicorp/http-echo
+        args: ["-text=Bye from bye"]
+        ports:
+        - containerPort: 5678
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bye
+spec:
+  selector:
+    app: bye
+  ports:
+  - port: 80
+    targetPort: 5678

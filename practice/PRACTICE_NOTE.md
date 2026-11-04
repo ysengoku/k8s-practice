@@ -311,7 +311,7 @@ curl -H "Host: app1.com" localhost:8080
 # Hello from app1
 curl -H "Host: app2.com" localhost:8080
 # Hello from app2
-curl -H localhost:8080
+curl localhost:8080
 # Hello from app3
 ```
 

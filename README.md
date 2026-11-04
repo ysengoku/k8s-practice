@@ -1,44 +1,5 @@
 # Kubernetes practice
 
-<div align="center">
-  <em>  
-    This project was created as part of the 42 curriculum by <a href="https://github.com/ysengoku">yusengok</a>.
-  </em>
-  <br /><br /><br />
-  <img src="https://img.shields.io/github/commit-activity/t/ysengoku/k8s-practice?style=flat-square&color=9D9E0A" />
-  <img src="https://img.shields.io/github/created-at/ysengoku/k8s-practice?style=flat-square&color=9D9E0A" />
-  <img src="https://img.shields.io/github/issues/ysengoku/k8s-practice?style=flat-square&color=9D9E0A" />
-</div>
-
-## Table of Contents
-
-<details>
-<summary>Click to Show / Hide</summary>
-
-- [About](#about)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Project Structure](#project-structure)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Usage](#usage)
-- [Notes](#notes)
-- [Resources](#resources)
-- [Authors](#authors)
-- [License](#license)
-
-</details>
-
-## About
-
-## Features
-
-## Architecture
-
-## Project Structure
-
 ## Tech Stack
 
 <!-- Use utils/TECH_STACK_LIST.md -->
@@ -121,11 +82,3 @@ Stop VM
 ```bash
 vagrant halt
 ```
-
-## Notes
-
-## Resources
-
-## Authors
-
-## License

@@ -7,7 +7,6 @@ spec:
   - host: app1.com
     http:
       paths:
-      paths:
       - path: /
         pathType: Prefix
         backend:
