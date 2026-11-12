@@ -17,6 +17,4 @@ while read -r uuid; do
     VBoxManage unregistervm "$uuid"
 done
 
-source ~/.zshrc
-
 echo "Done. Now, run: vagrant up"

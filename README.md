@@ -73,6 +73,11 @@ Up VM
 vagrant up
 ```
 
+VMs status
+```bash
+vagrant status
+```
+
 Connect to VM
 ```bash
 vagrant ssh
@@ -81,4 +86,14 @@ vagrant ssh
 Stop VM
 ```bash
 vagrant halt
+```
+
+Destroy VMs
+```bash
+vagrant destroy -f
+```
+
+Remove box
+```bash
+vagrant box remove <box name>
 ```

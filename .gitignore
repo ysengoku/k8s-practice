@@ -15,3 +15,4 @@ Thumbs.db
 
 *.log
 */.vagrant/
+.k3s-token
